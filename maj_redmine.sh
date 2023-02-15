@@ -1,15 +1,15 @@
 
 #!/bin/bash
 
-# définition des versions
-	echo "vers quelle version redmine doit être mis à jour ? (exemple 5.0.4)"
+# wich version needed
+	echo "to which version redmine should be updated ? (exemple 5.0.4)"
 		read new_version
 		new_path=/opt/redmine-${new_version}
-	echo "quelle est la dernière version installé ? (exemple: 4.1.1)"
+	echo "what is the latest version installed ? (exemple: 4.1.1)"
 		read old_version
 		old_path=/opt/redmine-${old_version}
 
-# décompression
+# decompression
 	cd /opt/
 	sudo wget https://redmine.org/releases/redmine-${new_version}.zip
 	sudo unzip /opt/redmine-${new_version}.zip
@@ -17,7 +17,7 @@
 	sudo chown -R redmine:redmine redmine-${new_version}
 	sudo chmod -R 777 ${new_path}/log
 
-#copie des fichiers
+#files copy
 	cd ${new_path}
 	sudo cp ${old_path}/config/database.yml config/
 	sudo cp ${old_path}/config/configuration.yml config/
@@ -38,12 +38,12 @@
 	done
 	sudo cp -r ${old_path}/vendor/ vendor/
 
-#changer le symlink
+#change the symlink
 	cd /var/www
 	sudo rm redmine
 	sudo ln -s ${new_path}/public redmine
 
-#installer les gems utiles
+#install gems usefull
 	cd ${new_path}
 	sudo apt-get install libyaml-dev
 	sudo gem install psych
@@ -51,13 +51,13 @@
 	sudo gem install rails -v 6.1.7
 	sudo bundle install
 
-# migrer les données
+# migrate data
 	sudo bundle exec rake db:migrate RAILS_ENV=production
 	sudo bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 
 	sudo chmod -R 777 ${new_path}/log
 
-#gestion de la clée
+#key gestion
 	sudo chmod 774 /etc/profile
 	sudo chmod 774 /etc/environment
 
@@ -78,5 +78,5 @@
 	sudo echo 'export SECRET_KEY_BASE='${tempo} >> /etc/profile
 
 #fin
-	sudo echo 'votre machine va redémarrer'
+	sudo echo 'restarting'
 	sudo reboot
