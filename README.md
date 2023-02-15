@@ -20,6 +20,7 @@ if it been working you can go on your navigator check if not here are the récur
   - SECRET_KEY_BASE problems > sudo echo $SECRET_KEY_BASE ==> if there is nothing relunch the script and check it permission
   - plugins > if a plugins is not compatible... a lot of error will appeard so retry to lunch without the plugins folder
   - gems > check the logs errors and install missing gems
+
 all problems will be repertoried into /var/log/apache2/error.log
 
 if you need help with it i could be here to help
