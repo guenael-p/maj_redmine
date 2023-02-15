@@ -77,6 +77,6 @@
 	sudo echo 'export SECRET_KEY_BASE='${tempo} >> /etc/environment && echo "ruby -e 'p" ' ["SECRET_KEY_BASE"]'"'" >> /etc/environment
 	sudo echo 'export SECRET_KEY_BASE='${tempo} >> /etc/profile
 
-#fin
+#end
 	sudo echo 'restarting'
 	sudo reboot
